@@ -1,1 +1,0 @@
-export default (length, minValue, maxValue) => Array.from({ length }, () => Math.floor(Math.random() * (maxValue - minValue + 1) + minValue))

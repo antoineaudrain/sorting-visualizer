@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import getRandomValuesArray from '../../utils/getRandomValuesArray';
+import { createRandomArr } from '../../utils/helpers';
 import ValueBar from '../../components/ValueBar';
 
 const SortingVisualizer = () => {
@@ -7,7 +7,7 @@ const SortingVisualizer = () => {
   const [values, setValues] = useState([]);
 
   const randomizeValues = () =>
-    setValues(getRandomValuesArray(arraySize, 5, 100));
+    setValues(createRandomArr(arraySize));
 
   const sort = () => {
     setValues([...values].sort((a, b) => {
@@ -16,16 +16,16 @@ const SortingVisualizer = () => {
   }
 
   useEffect(() => {
-    setValues(getRandomValuesArray(arraySize, 5, 100))
+    setValues(createRandomArr(arraySize))
   }, [arraySize]);
 
   return (
     <>
       <h1>SortingVisualizer</h1>
-      <input name="array-size" type="range" min="10" max="200" value={arraySize} onChange={(event) => setArraySize(event.target.value)} />
+      <input name="array-size" type="range" min="20" max="200" value={arraySize} onChange={(event) => setArraySize(event.target.value)} />
       <label htmlFor="array-size">Array Size: {arraySize}</label>
       <button onClick={randomizeValues}>Randomize</button>
-      <button onClick={sort}>Randomize</button>
+      <button onClick={sort}>Sort</button>
 
       <div style={{
         display:'flex',
