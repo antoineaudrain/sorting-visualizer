@@ -1,41 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createRandomArr } from '../../utils/helpers';
 import BarWrapper from '../../components/BarWrapper';
-import { setTheme } from '../../store/actions'
+import { setTheme, setInitialArray, setSpeed, setSize } from '../../store/actions'
 
 const SortingVisualizer = () => {
-  const [arraySize, setArraySize] = useState(20);
-  const [values, setValues] = useState([]);
+  const initialArray = useSelector((state) => state.initialArray)
   const theme = useSelector((state) => state.theme)
+  const speed = useSelector((state) => state.speed)
+  const size = useSelector((state) => state.size)
   const dispatch = useDispatch()
 
   const handleTheme = () =>
     dispatch(setTheme(theme === 'dark' ? 'light' : 'dark'));
 
-  const randomizeValues = () =>
-    setValues(createRandomArr(arraySize));
+  const handleShuffleInitialArray = () =>
+    dispatch(setInitialArray(createRandomArr(size)));
 
-  const sort = () => {
-    setValues([...values].sort((a, b) => {
-      return a - b;
-    }));
-  }
+  const handleSize = (event) =>
+    dispatch(setSize(event.target.value));
+
+  const handleSpeed = (event) =>
+    dispatch(setSpeed(event.target.value));
  
   useEffect(() => {
-    setValues(createRandomArr(arraySize))
-  }, [arraySize]);
+    handleShuffleInitialArray();
+  }, [size]);
 
   return (
     <>
-      <h1>SortingVisualizer</h1>
-      <input name="array-size" type="range" min="20" max="100" value={arraySize} onChange={(event) => setArraySize(event.target.value)} />
-      <label htmlFor="array-size">Array Size: {arraySize}</label>
-      <button onClick={randomizeValues}>Randomize</button>
-      <button onClick={sort}>Sort</button>
+      <label htmlFor="array-size">Array Size: {size}</label>
+      <input name="size" type="range" min="20" max="200" value={size} onChange={handleSize} />
+      <label htmlFor="speed">Speed: {speed}</label>
+      <input name="speed" type="range" min="500" max="10000" value={speed} onChange={handleSpeed} />
+      <button onClick={handleShuffleInitialArray}>Randomize</button>
       <button onClick={handleTheme}>{theme}</button>
 
-      <BarWrapper bars={values} speed={10} />
+      <BarWrapper bars={initialArray} speed={speed} />
     </>
   );
 };

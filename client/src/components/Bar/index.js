@@ -26,7 +26,7 @@ const StyledBar = styled.div(
 );
 
 const Bar = ({ bar: { value, isSwapped, isCompared }, highest, speed }) => {
-  const height = `${Math.floor((value / highest) * 100)}px`;
+  const height = `${Math.floor((80 / 100) * value)}vh`;
 
   return (
     <StyledBar

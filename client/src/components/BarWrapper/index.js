@@ -7,6 +7,8 @@ const StyledWrapper = styled.div(
   (props) => `
     display: flex;
     align-items: flex-start;
+    padding: 0 10%;
+    height: 80vh;
     background: ${props.theme.background.primary};
   `
 );

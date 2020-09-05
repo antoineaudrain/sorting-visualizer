@@ -24,8 +24,8 @@ const DarkTheme = {
     secondary: '#262B4A',
   },
   stateColor: {
-    compared: '#ff6361',
-    swapped: '#4ecca3',
+    compared: '#F8507F',
+    swapped: '#30FECF',
   },
   borderRadius: {
     medium: '12px',
