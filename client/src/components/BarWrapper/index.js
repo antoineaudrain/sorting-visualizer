@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Bar from '../Bar/index'
+import Bar from '../atoms/Bar'
 
 const StyledWrapper = styled.div(
   (props) => `
