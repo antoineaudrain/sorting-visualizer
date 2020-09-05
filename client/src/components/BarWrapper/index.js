@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Bar from '../Bar/index'
 
-const StyledWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-  background: #ECFBFE;
-`;
+const StyledWrapper = styled.div(
+  (props) => `
+    display: flex;
+    align-items: flex-start;
+    background: ${props.theme.background.primary};
+  `
+);
 
 const Wrapper = ({ bars, speed }) => {
   return (

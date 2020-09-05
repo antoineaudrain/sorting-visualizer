@@ -28,17 +28,6 @@ const SortingVisualizer = () => {
       <button onClick={sort}>Sort</button>
 
       <BarWrapper bars={values} speed={10} />
-      {/* <div style={{
-        display:'flex',
-        height: '100%',
-        flex: 1,
-        flexDirection: 'row',
-        margin: 50
-      }}>
-        {values.map((value, index) => (
-          <ValueBar key={index} value={{ value, isSwapped: false , isCompare: false }} highest={100} speed={10} />
-        ))}
-      </div> */}
     </>
   );
 };

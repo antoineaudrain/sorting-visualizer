@@ -1,12 +1,15 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import Router from './router';
+import ThemeProvider from './theme';
+import RouterProvider from './router';
 
 const App = () => {
   return (
     <StrictMode>
-      <Router />
+      <ThemeProvider>
+        <RouterProvider />
+      </ThemeProvider>
     </StrictMode>
   )
 }
