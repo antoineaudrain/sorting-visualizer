@@ -1,6 +1,7 @@
 import {
   SET_THEME,
   SET_INITIAL_ARRAY,
+  SET_ALGORYTHM,
   SET_SPEED,
   SET_SIZE
 } from '../constants'
@@ -8,6 +9,7 @@ import {
 const initialState = {
   theme: 'dark',
   initialArray: [],
+  algorythm: '',
   speed: 500,
   size: 24
 }
@@ -23,6 +25,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         initialArray: action.arr
+      }
+    case SET_ALGORYTHM:
+      return {
+        ...state,
+        algorythm: action.algorythm
       }
     case SET_SPEED:
       return {

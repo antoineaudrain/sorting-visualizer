@@ -16,10 +16,10 @@ const StyledWrapper = styled.div(
 const Wrapper = ({ bars, speed }) => {
   return (
     <StyledWrapper>
-      {bars.map((bar, index) => (
+      {bars.map(({ value }, index) => (
         <Bar
           key={index}
-          bar={{ value: bar, isSwapped: false , isCompared: false }}
+          bar={{ value, isSwapped: false , isCompared: false }}
           highest={bars.length}
           speed={speed}
         />
