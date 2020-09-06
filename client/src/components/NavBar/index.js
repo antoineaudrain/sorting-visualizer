@@ -32,7 +32,7 @@ const NavBar = () => {
       <RangeInput minValue={20} maxValue={200} value={size} onChange={handleSize} />
 
       <label htmlFor="speed">Speed: {speed}</label>
-      <RangeInput minValue={500} maxValue={10000} value={speed} onChange={handleSpeed} />
+      <RangeInput minValue={500} maxValue={1000} value={speed} onChange={handleSpeed} />
 
       <button onClick={handleShuffleInitialArray}>Randomize</button>
       <button onClick={handleTheme}>{theme}</button>
