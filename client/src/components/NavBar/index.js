@@ -6,8 +6,7 @@ import RangeInput from '../atoms/RangeInput'
 import SelectInput from '../atoms/SelectInput'
 
 const algorythmItems = [
-  { label: '--Choose a sorting algo--', value: '', selected: true },
-  { label: 'Bubble Sort', value: algorythms.BUBBLE_SORT }
+  { label: 'Bubble Sort', value: algorythms.BUBBLE_SORT, selected: true }
 ];
 
 const NavBar = ({ handleSort }) => {

@@ -9,7 +9,7 @@ import {
 const initialState = {
   theme: 'dark',
   initialArray: [],
-  algorythm: '',
+  algorythm: 'BUBBLE_SORT',
   speed: 500,
   size: 24
 }
