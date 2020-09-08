@@ -16,12 +16,12 @@ const LightTheme = {
     medium: '12px',
     large: '100px',
   }
-}
+};
 
 const DarkTheme = {
   background: {
     primary: '#1E2039',
-    secondary: '#262B4A',
+    secondary: '#303246',
   },
   stateColor: {
     compared: '#F8507F',
@@ -31,7 +31,7 @@ const DarkTheme = {
     medium: '12px',
     large: '100px',
   }
-}
+};
 
 const Theme = ({ children }) => {
   const theme = useSelector((state) => state.theme)
@@ -41,10 +41,10 @@ const Theme = ({ children }) => {
       {children}
     </ThemeProvider>
   );
-}
+};
 
 Theme.propTypes = {
   children: PropTypes.node.isRequired
-}
+};
 
-export default Theme
+export default Theme;

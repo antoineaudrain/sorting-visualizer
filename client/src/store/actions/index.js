@@ -1,7 +1,7 @@
 import {
   SET_THEME,
   SET_INITIAL_ARRAY,
-  SET_ALGORYTHM,
+  SET_ALGORITHM,
   SET_SPEED,
   SET_SIZE
 } from '../constants'
@@ -16,9 +16,9 @@ export const setInitialArray = (arr) => ({
   arr
 })
 
-export const setAlgorythm = (algorythm) => ({
-  type: SET_ALGORYTHM,
-  algorythm
+export const setAlgorithm = (algorithm) => ({
+  type: SET_ALGORITHM,
+  algorithm
 })
 
 export const setSpeed = (speed) => ({

@@ -3,20 +3,20 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import StoreProvider from './store';
 import ThemeProvider from './theme';
-import RouterProvider from './router';
-import './reset.css'
+import SortingVisualizer from './containers/SortingVisualizer';
+import './reset.css';
 
 const App = () => {
   return (
     <StrictMode>
       <StoreProvider>
         <ThemeProvider>
-          <RouterProvider />
+          <SortingVisualizer />
         </ThemeProvider>
       </StoreProvider>
     </StrictMode>
-  )
-}
+  );
+};
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

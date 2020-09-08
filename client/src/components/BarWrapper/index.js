@@ -1,28 +1,23 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Bar from '../atoms/Bar'
+import Bar from '../atoms/Bar';
 
 const StyledWrapper = styled.div(
-  (props) => `
+  () => `
+    flex-grow : 1;
     display: flex;
-    align-items: flex-start;
-    padding: 0 10%;
-    height: 80vh;
-    background: ${props.theme.background.primary};
+    align-items: flex-end;
+    padding: 10% 8% 0 8%;
   `
 );
 
 const Wrapper = ({ bars, speed }) => {
+  console.log(bars)
   return (
     <StyledWrapper>
-      {bars.map(({ value }, index) => (
-        <Bar
-          key={index}
-          bar={{ value, isSwapped: false , isCompared: false }}
-          highest={bars.length}
-          speed={speed}
-        />
+      {bars.map(({ value, status }, index) => (
+        <Bar key={index} bar={{ value, status }} speed={speed} />
       ))}
     </StyledWrapper>
   );
@@ -31,6 +26,6 @@ const Wrapper = ({ bars, speed }) => {
 Wrapper.propTypes = {
   bars: PropTypes.array.isRequired,
   speed: PropTypes.number.isRequired
-}
+};
 
 export default Wrapper;

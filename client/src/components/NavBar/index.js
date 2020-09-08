@@ -1,57 +1,59 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setTheme, setInitialArray, setAlgorythm, setSpeed, setSize } from '../../store/actions'
-import { createRandomArr, algorythms } from '../../utils/helpers';
-import RangeInput from '../atoms/RangeInput'
-import SelectInput from '../atoms/SelectInput'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { algorithmItems } from '../../utils/helpers';
+import RangeInput from '../atoms/RangeInput';
+import SelectInput from '../atoms/SelectInput';
 
-const algorythmItems = [
-  { label: 'Bubble Sort', value: algorythms.BUBBLE_SORT, selected: true }
-];
+const StyledNavBar = styled.div(
+  (props) => `
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 96px;
+    border-bottom: 1px solid ${props.theme.background.secondary};
+  `
+);
 
-const NavBar = ({ handleSort }) => {
-  const theme = useSelector((state) => state.theme)
-  const initialArray = useSelector((state) => state.initialArray)
-  const algorythm = useSelector((state) => state.algorythm)
-  const speed = useSelector((state) => state.speed)
-  const size = useSelector((state) => state.size)
-  const dispatch = useDispatch()
-
-  const handleTheme = () =>
-    dispatch(setTheme(theme === 'dark' ? 'light' : 'dark'));
-
-  const handleShuffleInitialArray = () =>
-    dispatch(setInitialArray(createRandomArr(size)));
-
-  const handleAlgorythm = (event) =>
-    dispatch(setAlgorythm(event.target.value));
-
-  const handleSize = (event) =>
-    dispatch(setSize(event.target.value));
-
-  const handleSpeed = (event) =>
-    dispatch(setSpeed(event.target.value));
- 
-  useEffect(() => {
-    dispatch(setInitialArray(createRandomArr(size)));
-  }, [dispatch, size]);
-
+const NavBar = ({
+  theme,
+  initialArray,
+  algorithm,
+  size,
+  speed,
+  sort
+}) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-      <label>Array Size: {size}</label>
-      <RangeInput minValue={20} maxValue={200} value={size} onChange={handleSize} />
+    <StyledNavBar>
+      <label>Array Size: {size.state}</label>
+      <RangeInput minValue={5} maxValue={200} value={size.state} onChange={size.dispatch} />
 
-      <label>Algorythm: {algorythm}</label>
-      <SelectInput options={algorythmItems} onChange={handleAlgorythm} />
+      <label>Algorithm:</label>
+      <SelectInput options={algorithmItems} onChange={algorithm.dispatch} />
 
-      <label>Speed: {speed}</label>
-      <RangeInput minValue={500} maxValue={1000} value={speed} onChange={handleSpeed} />
+      <label>Speed:</label>
+      <RangeInput minValue={500} maxValue={1000} value={speed.state} onChange={speed.dispatch} />
 
-      <button onClick={handleShuffleInitialArray}>Randomize</button>
-      <button onClick={handleSort} disabled={!algorythm || !initialArray}>Start sort</button>
-      <button onClick={handleTheme}>{theme}</button>
-    </div>
-  )
+      <button onClick={initialArray.dispatch}>
+        Shuffle
+      </button>
+      <button onClick={sort.dispatch} disabled={!algorithm.state || !initialArray.state}>
+        {sort.state ? 'Stop' : 'Start'}
+      </button>
+      <button onClick={theme.dispatch}>
+        {theme.state}
+      </button>
+    </StyledNavBar>
+  );
+};
+
+NavBar.propTypes = {
+  theme: PropTypes.object.isRequired,
+  initialArray: PropTypes.object.isRequired,
+  algorithm: PropTypes.object.isRequired,
+  size: PropTypes.object.isRequired,
+  speed: PropTypes.object.isRequired,
+  sort: PropTypes.object.isRequired
 };
 
 export default NavBar;

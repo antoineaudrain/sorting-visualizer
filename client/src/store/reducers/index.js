@@ -1,7 +1,7 @@
 import {
   SET_THEME,
   SET_INITIAL_ARRAY,
-  SET_ALGORYTHM,
+  SET_ALGORITHM,
   SET_SPEED,
   SET_SIZE
 } from '../constants'
@@ -9,7 +9,7 @@ import {
 const initialState = {
   theme: 'dark',
   initialArray: [],
-  algorythm: 'BUBBLE_SORT',
+  algorithm: 'BUBBLE_SORT',
   speed: 500,
   size: 24
 }
@@ -26,10 +26,10 @@ export default (state = initialState, action) => {
         ...state,
         initialArray: action.arr
       }
-    case SET_ALGORYTHM:
+    case SET_ALGORITHM:
       return {
         ...state,
-        algorythm: action.algorythm
+        algorithm: action.algorithm
       }
     case SET_SPEED:
       return {

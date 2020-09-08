@@ -1,23 +1,96 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import BarWrapper from '../../components/BarWrapper';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { createRandomArr } from "../../utils/helpers";
 import sort from '../../utils/sorter';
-import NavBar from '../../components/NavBar'
+import { setAlgorithm, setInitialArray, setSize, setSpeed, setTheme } from '../../store/actions';
+import BarWrapper from '../../components/BarWrapper';
+import NavBar from '../../components/NavBar';
+
+const StyledContainer = styled.div(
+  () => `
+    height: 100vh;
+  `
+);
+
+const StyledCard = styled.div(
+  (props) => `
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    background: ${props.theme.background.primary};
+    border-radius: ${props.theme.borderRadius.medium};
+    overflow: hidden;
+  `
+);
 
 const SortingVisualizer = () => {
-  const [sortedArray, setSortedArray] = useState([])
-  const initialArray = useSelector((state) => state.initialArray)
-  const algorythm = useSelector((state) => state.algorythm)
-  const speed = useSelector((state) => state.speed)
+  const [sorting, setSorting] = useState(false);
+  const [currentAnimation, setCurrentAnimation] = useState([]);
+  const theme = useSelector((state) => state.theme);
+  const initialArray = useSelector((state) => state.initialArray);
+  const algorithm = useSelector((state) => state.algorithm);
+  const speed = useSelector((state) => state.speed);
+  const size = useSelector((state) => state.size);
+  const dispatch = useDispatch();
 
-  const handleSort = () => sort(initialArray, algorythm)
-    // setSortedArray(sort(initialArray, algorythm));
+  const handleSort = () => {
+    if (sorting) {
+      setSorting(false);
+    } else {
+      let step = 0;
+      setSorting(true);
+      const animations = sort(initialArray, algorithm);
+      const interval = setInterval(() => {
+        if (sorting && step <= animations.length) {
+          setCurrentAnimation(animations[step]);
+          step++;
+        } else {
+          clearInterval(interval);
+        }
+      }, speed);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(setInitialArray(createRandomArr(size)));
+  }, [dispatch, size]);
 
   return (
-    <>
-      <NavBar handleSort={handleSort} />
-      <BarWrapper bars={initialArray} speed={speed} />
-    </>
+    <StyledContainer>
+      <StyledCard>
+        <NavBar
+          theme={{
+            state: theme,
+            dispatch: () => dispatch(setTheme(theme.state === 'dark' ? 'light' : 'dark'))
+          }}
+          size={{
+            state: size,
+            dispatch: (event) => dispatch(setSize(event.target.value))
+          }}
+          algorithm={{
+            state: algorithm,
+            dispatch: (event) => dispatch(setAlgorithm(event.target.value))
+          }}
+          speed={{
+            state: speed,
+            dispatch: (event) => dispatch(setSpeed(event.target.value))
+          }}
+          initialArray={{
+            state: initialArray,
+            dispatch: () => dispatch(setInitialArray(createRandomArr(size)))
+          }}
+          sort={{
+            state: sorting,
+            dispatch: () => handleSort()
+          }}
+        />
+        <BarWrapper
+          bars={sorting ? currentAnimation : initialArray}
+          speed={speed}
+        />
+      </StyledCard>
+    </StyledContainer>
   );
 };
 

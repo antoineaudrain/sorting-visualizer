@@ -1,4 +1,4 @@
-import { algorythms, animationStatus, createAnimationArr, swap } from './helpers'
+import { algorithms, animationStatus, createAnimationArr, swap } from './helpers';
 
 const bubbleSort = (arr) => {
   const animations = []
@@ -18,15 +18,13 @@ const bubbleSort = (arr) => {
   }
 
   return animations;
-}
+};
 
-export default (arr, algorythm) => {
-  const values = [...arr]
-
-  switch (algorythm) {
-    case algorythms.BUBBLE_SORT:
-      return bubbleSort(values)
+export default (arr, algorithm) => {
+  switch (algorithm) {
+    case algorithms.BUBBLE_SORT:
+      return bubbleSort([...arr])
     default:
       return null;
   }
-}
+};
