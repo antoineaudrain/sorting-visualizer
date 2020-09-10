@@ -25,6 +25,7 @@ const StyledCard = styled.div(
 );
 
 const SortingVisualizer = () => {
+  const [step, setStep] = useState(0);
   const [sorting, setSorting] = useState(false);
   const [currentAnimation, setCurrentAnimation] = useState([]);
   const theme = useSelector((state) => state.theme);
@@ -34,23 +35,23 @@ const SortingVisualizer = () => {
   const size = useSelector((state) => state.size);
   const dispatch = useDispatch();
 
-  const handleSort = () => {
+  useEffect(() => {
     if (sorting) {
-      setSorting(false);
-    } else {
-      let step = 0;
-      setSorting(true);
       const animations = sort(initialArray, algorithm);
       const interval = setInterval(() => {
         if (sorting && step <= animations.length) {
           setCurrentAnimation(animations[step]);
-          step++;
+          setStep(step + 1);
         } else {
           clearInterval(interval);
         }
-      }, speed);
+      }, 3000);
+
+      return () => {
+        clearInterval(interval);
+      };
     }
-  };
+  }, [step, initialArray, algorithm, sorting]);
 
   useEffect(() => {
     dispatch(setInitialArray(createRandomArr(size)));
@@ -82,7 +83,7 @@ const SortingVisualizer = () => {
           }}
           sort={{
             state: sorting,
-            dispatch: () => handleSort()
+            dispatch: () => setSorting(!sorting)
           }}
         />
         <BarWrapper
